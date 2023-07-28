@@ -71,15 +71,12 @@ class YoutubeDownloader:
         None
         """
 
-        try:
-            video = YouTube(url)
-            print("downloading video...")
-            video.streams.filter(progressive=True, file_extension="mp4").order_by(
-                "resolution"
-            )[-1].download(folder_output, video.title)
-            print("download completed!")
-        except Exception as _e:
-            print(f"An error occurred: {str(_e)}")
+        video = YouTube(url)
+        print("downloading video...")
+        video.streams.filter(progressive=True, file_extension="mp4").order_by(
+            "resolution"
+        )[-1].download(folder_output, video.title)
+        print("download completed!")
 
     def download_video_playlist_highest_resolution(
         self, playlist: str, folder_output=""
@@ -98,16 +95,13 @@ class YoutubeDownloader:
         -------
         None
         """
-        try:
-            _p = Playlist(playlist)
-            print("downloading playlist...")
-            for _v in _p.videos:
-                _v.streams.filter(progressive=True, file_extension="mp4").order_by(
-                    "resolution"
-                )[-1].download(folder_output, _v.title)
-            print("download completed!")
-        except Exception as _e:
-            print(f"An error occurred: {str(_e)}")
+        _p = Playlist(playlist)
+        print("downloading playlist...")
+        for _v in _p.videos:
+            _v.streams.filter(progressive=True, file_extension="mp4").order_by(
+                "resolution"
+            )[-1].download(folder_output, _v.title)
+        print("download completed!")
 
     def download_only_sound(self, url: str, folder_output="") -> None:
         """
@@ -126,15 +120,12 @@ class YoutubeDownloader:
         None
         """
 
-        try:
-            video = YouTube(url)
-            print("downloading video sound...")
-            video.streams.filter(only_audio=True).order_by("abr")[-1].download(
-                folder_output, video.title
-            )
-            print("download completed!")
-        except Exception as _e:
-            print(f"An error occurred: {str(_e)}")
+        video = YouTube(url)
+        print("downloading video sound...")
+        video.streams.filter(only_audio=True).order_by("abr")[-1].download(
+            folder_output, video.title
+        )
+        print("download completed!")
 
     def download_only_sound_playlist(self, playlist: str, folder_output="") -> None:
         """
@@ -152,13 +143,10 @@ class YoutubeDownloader:
         None
         """
 
-        try:
-            _p = Playlist(playlist)
-            print("downloading playlist sound...")
-            for _v in _p.videos:
-                _v.streams.filter(only_audio=True).order_by("abr")[-1].download(
-                    folder_output, _v.title
-                )
-            print("download completed!")
-        except Exception as _e:
-            print(f"An error occurred: {str(_e)}")
+        _p = Playlist(playlist)
+        print("downloading playlist sound...")
+        for _v in _p.videos:
+            _v.streams.filter(only_audio=True).order_by("abr")[-1].download(
+                folder_output, _v.title
+            )
+        print("download completed!")
