@@ -1,3 +1,7 @@
+"""
+A simple script to download videos and sounds from a youtube playlist and clips.
+"""
+
 from pytube import YouTube, Playlist
 
 

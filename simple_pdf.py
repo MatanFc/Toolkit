@@ -1,3 +1,7 @@
+"""
+A simple script to merge and rotate PDF files.
+"""
+
 import os
 from pypdf import PdfMerger, PdfWriter, PdfReader
 
@@ -97,12 +101,12 @@ class SimplePdf:
         reader = PdfReader(pdf_path)
         writer = PdfWriter()
 
-        for p in reader.pages:
-            writer.add_page(p)
+        for _p in reader.pages:
+            writer.add_page(_p)
             writer.pages[len(writer.pages) - 1].rotate(degrees)
 
-        with open(os.path.join(out_folder, name), "wb") as fp:
-            writer.write(fp)
+        with open(os.path.join(out_folder, name), "wb") as _fp:
+            writer.write(_fp)
 
     def merge_from_folder(self, folder_path: str, out_folder="") -> None:
         """
