@@ -17,6 +17,8 @@ pip install -r requirements.txt
 
 ## Usage
 
+### you can use the inner help command with -h or --help to see the full list of available commands
+
 1. Download YouTube Videos or Playlists:
 ```css
 python main.py yt --type video <URL> --folder_output <output_folder>

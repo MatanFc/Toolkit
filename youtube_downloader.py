@@ -2,10 +2,25 @@ from pytube import YouTube, Playlist
 
 
 class YoutubeDownloader:
+    """Class representing youtube download tool"""
+
     def __init__(self):
         pass
 
     def add_arguments(self, subparsers) -> None:
+        """
+        Add arguments to ArgParser, in order to build convenient menu
+
+        Parameters :
+        ----------
+        subparsers : _SubParsersAction[ArgumentParser]
+            The subparsers argument of the ArgParser.
+
+        Returns
+        -------
+        None
+        """
+
         parser = subparsers.add_parser(
             "yt", help="Download YouTube videos or playlists with various options."
         )
@@ -37,6 +52,21 @@ class YoutubeDownloader:
         )
 
     def download_highest_video_with_sound(self, url: str, folder_output="") -> None:
+        """
+        Function to download youtube video with highest resolution available
+
+        Parameters :
+        ----------
+        url : str
+            The URL of the YouTube video.
+        folder_output : str, optional
+            The folder where the downloaded file will be saved. The default is the current folder.
+
+        Returns
+        -------
+        None
+        """
+
         try:
             video = YouTube(url)
             print("downloading video...")
@@ -44,24 +74,54 @@ class YoutubeDownloader:
                 "resolution"
             )[-1].download(folder_output, video.title)
             print("download completed!")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+        except Exception as _e:
+            print(f"An error occurred: {str(_e)}")
 
     def download_video_playlist_highest_resolution(
         self, playlist: str, folder_output=""
     ) -> None:
+        """
+        Function to download youtube video playlist with highest resolution available
+
+        Parameters :
+        ----------
+        playlist : str
+            The URL of the YouTube playlist.
+        folder_output : str, optional
+            The folder where the downloaded files will be saved. The default is the current folder.
+
+        Returns
+        -------
+        None
+        """
         try:
-            p = Playlist(playlist)
+            _p = Playlist(playlist)
             print("downloading playlist...")
-            for v in p.videos:
-                v.streams.filter(progressive=True, file_extension="mp4").order_by(
+            for _v in _p.videos:
+                _v.streams.filter(progressive=True, file_extension="mp4").order_by(
                     "resolution"
-                )[-1].download(folder_output, v.title)
+                )[-1].download(folder_output, _v.title)
             print("download completed!")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+        except Exception as _e:
+            print(f"An error occurred: {str(_e)}")
 
     def download_only_sound(self, url: str, folder_output="") -> None:
+        """
+        Function to download youtube video sound with highest available audio bitrate
+        and highest audio quality
+
+        Parameters :
+        ----------
+        url : str
+            The URL of the YouTube video.
+        folder_output : str, optional
+            The folder where the downloaded file will be saved. The default is the current folder.
+
+        Returns
+        -------
+        None
+        """
+
         try:
             video = YouTube(url)
             print("downloading video sound...")
@@ -69,17 +129,32 @@ class YoutubeDownloader:
                 folder_output, video.title
             )
             print("download completed!")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+        except Exception as _e:
+            print(f"An error occurred: {str(_e)}")
 
     def download_only_sound_playlist(self, playlist: str, folder_output="") -> None:
+        """
+        Function to download youtube video playlist sound with highest available audio bitrate
+
+        Parameters :
+        ----------
+        playlist : str
+            The URL of the YouTube playlist.
+        folder_output : str, optional
+            The folder where the downloaded files will be saved. The default is the current folder.
+
+        Returns
+        -------
+        None
+        """
+
         try:
-            p = Playlist(playlist)
+            _p = Playlist(playlist)
             print("downloading playlist sound...")
-            for v in p.videos:
-                v.streams.filter(only_audio=True).order_by("abr")[-1].download(
-                    folder_output, v.title
+            for _v in _p.videos:
+                _v.streams.filter(only_audio=True).order_by("abr")[-1].download(
+                    folder_output, _v.title
                 )
             print("download completed!")
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
+        except Exception as _e:
+            print(f"An error occurred: {str(_e)}")

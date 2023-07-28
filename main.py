@@ -1,11 +1,18 @@
+"""
+A simple script to manage the youtube_downloader and simple_pdf commands.
+"""
+
 import argparse
 from youtube_downloader import YoutubeDownloader
-from simple_pdf import simplePDF
+from simple_pdf import SimplePdf
 
 
 def main():
+    """
+    Main function.
+    """
     youtube_downloader = YoutubeDownloader()
-    simple_pdf = simplePDF()
+    simple_pdf = SimplePdf()
 
     parser = argparse.ArgumentParser(description="Options:")
 

@@ -2,11 +2,28 @@ import os
 from pypdf import PdfMerger, PdfWriter, PdfReader
 
 
-class simplePDF:
+class SimplePdf:
+    """
+    Class representing a pdf tool to manipulate files
+    """
+
     def __init__(self):
         pass
 
     def add_arguments(self, subparsers) -> None:
+        """
+        Add arguments to ArgParser, in order to build convenient menu
+
+        Parameters :
+        ----------
+        subparsers : _SubParsersAction[ArgumentParser]
+            The subparsers argument of the ArgParser.
+
+        Returns
+        -------
+        None
+        """
+
         pdf_parser = subparsers.add_parser(
             "pdf", help="PDF toolkit to easily manipulate files"
         )
@@ -58,17 +75,51 @@ class simplePDF:
     def rotate_clockwise(
         self, pdf_path: str, out_folder="", name="out.pdf", degrees=90
     ) -> None:
-        r = PdfReader(pdf_path)
-        w = PdfWriter()
+        """
+        Function to rotate pdf files clockwise
 
-        for p in r.pages:
-            w.add_page(p)
-            w.pages[len(w.pages) - 1].rotate(degrees)
+        Parameters :
+        ----------
+        pdf_path : str
+            Path to the PDF file to
+        out_folder : str
+            Specify the folder where the rotated PDF will be saved.
+        name : str
+            Specify the output file name for the rotated PDF.
+        degrees : int
+            Specify the rotation angle: 90, 180, or 270 degrees.
+
+        Returns
+        -------
+        None
+        """
+
+        reader = PdfReader(pdf_path)
+        writer = PdfWriter()
+
+        for p in reader.pages:
+            writer.add_page(p)
+            writer.pages[len(writer.pages) - 1].rotate(degrees)
 
         with open(os.path.join(out_folder, name), "wb") as fp:
-            w.write(fp)
+            writer.write(fp)
 
     def merge_from_folder(self, folder_path: str, out_folder="") -> None:
+        """
+        Function to merge multiple pdf files from given folder
+        
+        Parameters :
+        ----------
+        folder_path : str
+            Path to the folder containing the PDFs to merge.
+        out_folder : str
+            Specify the folder where the merged PDF will be saved.
+
+        Returns
+        -------
+        None
+        """
+
         files = os.listdir(folder_path)
         files.sort()
         full_path_pdfs = [
