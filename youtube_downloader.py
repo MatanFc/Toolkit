@@ -75,7 +75,7 @@ class YoutubeDownloader:
         print("downloading video...")
         video.streams.filter(progressive=True, file_extension="mp4").order_by(
             "resolution"
-        )[-1].download(folder_output, video.title)
+        )[-1].download(folder_output, f'{video.title}.mp4')
         print("download completed!")
 
     def download_video_playlist_highest_resolution(
@@ -100,7 +100,7 @@ class YoutubeDownloader:
         for _v in _p.videos:
             _v.streams.filter(progressive=True, file_extension="mp4").order_by(
                 "resolution"
-            )[-1].download(folder_output, _v.title)
+            )[-1].download(folder_output, f'{_v.title}.mp4')
         print("download completed!")
 
     def download_only_sound(self, url: str, folder_output="") -> None:
@@ -123,7 +123,7 @@ class YoutubeDownloader:
         video = YouTube(url)
         print("downloading video sound...")
         video.streams.filter(only_audio=True).order_by("abr")[-1].download(
-            folder_output, video.title
+            folder_output, f'{video.title}.mp3'
         )
         print("download completed!")
 
@@ -147,6 +147,6 @@ class YoutubeDownloader:
         print("downloading playlist sound...")
         for _v in _p.videos:
             _v.streams.filter(only_audio=True).order_by("abr")[-1].download(
-                folder_output, _v.title
+                folder_output, f'{_v.title}.mp3'
             )
         print("download completed!")
